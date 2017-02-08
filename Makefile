@@ -1,4 +1,6 @@
 ###################################################################
+#  Makefile for linux lib.
+#  Writen by dengguangyong (deng_joe@163.com) - 2016-12-18
 #################################################################
 
 ROOT = .
@@ -25,7 +27,7 @@ sobin = $(libdst)/lib$(BASELIBNAME).so
 DEFS =  
 IFLAGS = -I$(obj_inc) -I$(depend_inc)
 CFLAGS = -Wall $(IFLAGS)
-APPLIBS = -ldemo
+APPLIBS =
 SYSLIBS = -lrt -lm -lpthread
 APPLFLAGS = -L$(libdst) -L$(depend_lib)
 
@@ -67,9 +69,14 @@ objs =  $(obj_objs)
 all: clean $(bin)
 so: clean $(sobin)
 debug: clean $(sobin)
+main: $(sobin) 
 clean: 
 	$(RM) $(objs)
  
+main: $(obj) $(sobin)
+	gcc -o $@ -L. -ltest
+
+
  
 $(sobin): $(objs) 
 	$(SOLINK) $@ $? $(LIBS)
